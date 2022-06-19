@@ -64,6 +64,10 @@ class Suggestation(commands.Cog):
 
         embed.set_author(name="Suggestation: <@988180927903592538>")
 
+        embed.add_field(name="Attempting mention in a field",
+                        value="<@988180927903592538>",
+                        inline=False)
+
         channel = get(ctx.guild.text_channels, id=suggestionChannel)
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
