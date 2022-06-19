@@ -71,4 +71,4 @@ class Suggestation(commands.Cog):
         embed = discord.Embed(color=discord.Color.from_rgb(255, 0, 000))
 
         embed.add_field(name="ERROR ADDING SUGGESTION", value=message, inline=False)
-        await sender.send("", embed=embed)
+        return await sender.send("", embed=embed)
