@@ -45,6 +45,10 @@ class Suggestation(commands.Cog):
             if len(currentContent) > 2:
                 return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
 
+            elif len(currentContent) == 1:
+                return await ctx.send(f"Field not found or nothing found within it, please enter something"
+                                      f"even if it is N/A for the field: **{fields[i]}**")
+
             elif len(currentContent) > 2:
                 return await ctx.send(f"Field not found or nothing found within it, please enter something"
                                       f"even if it is N/A for the field: **{fields[i]}**")
