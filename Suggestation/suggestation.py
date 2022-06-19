@@ -1,3 +1,4 @@
+import discord
 from discord import client
 from discord.utils import get
 from redbot.core import commands
@@ -13,12 +14,7 @@ class Suggestation(commands.Cog):
     @commands.command()
     async def suggest(self, ctx, suggestion):
         """This does stuff!"""
-        # Your code will go here
-        #await self.config.guild(557986764548079617).channel(800328370252415006)
-
+        embed = discord.Embed(color=await ctx.embed_colour(), description=suggestion)
+        
         channel = get(ctx.guild.text_channels, id=800328370252415006)
-        #server = ctx.guild.id
-        msg = await channel.send(suggestion)
-
-        #await client.get_guild(557986764548079617).get_channel(800328370252415006).send(suggestion)
-        #await ctx.send("I can do stuff!" + suggestion)
+        msg = await channel.send(suggestion, embed=embed)
