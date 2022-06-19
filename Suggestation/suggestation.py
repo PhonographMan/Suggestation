@@ -40,8 +40,7 @@ class Suggestation(commands.Cog):
 
             if len(currentContent) > 2:
                 #return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
-                self.ErrorReturn(sender=ctx, message=f"Entered too many of this field: **{fields[i]}**")
-                return
+                return self.ErrorReturn(sender=ctx, message=f"Entered too many of this field: **{fields[i]}**")
 
             elif len(currentContent) > 2:
                 return await ctx.send(f"Field not found or nothing found within it, please enter something"
