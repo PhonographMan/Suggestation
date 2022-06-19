@@ -41,14 +41,16 @@ class Suggestation(commands.Cog):
 
             if i < len(fields) - 1:
                 currentContent = currentContent[1].split(f"**{fields[i+1]}**")
+                currentContent = currentContent[0]
 
-            currentContent = currentContent[0]
+            else:
+                currentContent = currentContent[1]
 
             embed.add_field(name=fields[i],
                             value=currentContent,
                             inline=False)
 
-        suggestion = suggestion.split(f"**SUGGESTION**: {suggestion}")
+        #suggestion = suggestion.split(f"**SUGGESTION**: {suggestion}")
 
         #await ctx.send(f"**SUGGESTION**: {suggestion}")
 
