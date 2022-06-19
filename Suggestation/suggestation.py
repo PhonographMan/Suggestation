@@ -3,6 +3,8 @@ from discord import client
 from discord.utils import get
 from redbot.core import commands
 from redbot.core.utils import embed
+from redbot.core.utils.menus import start_adding_reactions
+from redbot.core.utils.predicates import ReactionPredicate
 
 
 class Suggestation(commands.Cog):
@@ -29,3 +31,4 @@ class Suggestation(commands.Cog):
 
         channel = get(ctx.guild.text_channels, id=800328370252415006)
         msg = await channel.send("", embed=embed)
+        start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
