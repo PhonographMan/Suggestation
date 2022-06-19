@@ -29,9 +29,7 @@ class Suggestation(commands.Cog):
         embed.add_field(name="WHY SHOULD WE ADD THIS SUGGESTION?", value=f"I think it would be a fun way to celebrate members of our community as that's a major life event for many people. We have a lot of younger people on the server and it would be a nice way to show some support.", inline=False)
         embed.add_field(name="ANY OTHER USEFUL INFORMATION", value=f"Just an addition for community spirit", inline=False)
 
-        channel = get(ctx.guild.text_channels, id=731318735628927037)
-        #channel = get(ctx.guild.text_channels, id=800328370252415006)
+        channel = get(ctx.guild.text_channels, id=800328370252415006)
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
-        #start_adding_reactions(msg, ReactionPredicate.with_emojis(emojis=":idisagree:", emoji=))
