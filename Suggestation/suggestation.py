@@ -40,7 +40,7 @@ class Suggestation(commands.Cog):
 
             if len(currentContent) > 2:
                 #return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
-                return self.ErrorReturn(self=self, ctx=ctx, message=f"Entered too many of this field: **{fields[i]}**")
+                return self.ErrorReturn(ctx=ctx, message=f"Entered too many of this field: **{fields[i]}**")
 
             elif len(currentContent) > 2:
                 return await ctx.send(f"Field not found or nothing found within it, please enter something"
@@ -67,7 +67,7 @@ class Suggestation(commands.Cog):
         await msg.add_reaction("<:emoji:731293934856175687>")
         await ctx.message.delete()
 
-    async def ErrorReturn(self, ctx, message):
+    async def ErrorReturn(ctx, message):
         embed = discord.Embed(color=discord.Color.from_rgb(255, 0, 000))
 
         embed.add_field(name="ERROR ADDING SUGGESTION", value=message, inline=False)
