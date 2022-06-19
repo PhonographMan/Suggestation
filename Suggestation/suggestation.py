@@ -14,7 +14,13 @@ class Suggestation(commands.Cog):
 
     @commands.command()
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
-        """This does stuff!"""
+
+        channel = get(ctx.guild.text_channels, id=732054706381127740)
+        if ctx.channel.id != 732054706381127740:
+            return
+
+
+
         embed = discord.Embed(
             # color=await ctx.embed_colour(),
             color=discord.Color.from_rgb(255, 0, 255)
@@ -34,7 +40,7 @@ class Suggestation(commands.Cog):
 
         for i in range(len(fields)):
             currentContent = suggestion.split(f"**{fields[i]}**")
-            
+
             if len(currentContent) > 2:
                 return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
 
