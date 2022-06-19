@@ -14,7 +14,11 @@ class Suggestation(commands.Cog):
     @commands.command()
     async def suggest(self, ctx, suggestion):
         """This does stuff!"""
-        embed = discord.Embed(color=await ctx.embed_colour(), description="This is a description")
+        embed = discord.Embed(
+            color=await ctx.embed_colour(),
+            description="This is a description",
+            content=suggestion
+        )
 
         channel = get(ctx.guild.text_channels, id=800328370252415006)
-        msg = await channel.send(content=suggestion, embed=embed)
+        msg = await channel.send("", embed=embed)
