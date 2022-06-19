@@ -16,7 +16,7 @@ class Suggestation(commands.Cog):
         # Your code will go here
         #await self.config.guild(557986764548079617).channel(800328370252415006)
 
-        channel = get(ctx.guild.text_channels, 800328370252415006)
+        channel = get(ctx.guild.text_channels, id=800328370252415006)
         server = ctx.guild.id
         msg = await channel.send(content=suggestion, embed=embed)
 
