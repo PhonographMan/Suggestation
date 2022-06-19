@@ -17,7 +17,7 @@ class Suggestation(commands.Cog):
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
         """This does stuff!"""
         embed = discord.Embed(
-            #color=await ctx.embed_colour(),
+            # color=await ctx.embed_colour(),
             color=discord.Color.from_rgb(255, 0, 255)
         )
 
@@ -31,7 +31,7 @@ class Suggestation(commands.Cog):
             "IS YOUR IDEA AN EXISTING PLUGIN OR DATAPACK?",
             "WHY SHOULD WE ADD THIS SUGGESTION?",
             "ANY OTHER USEFUL INFORMATION"
-            ]
+        ]
 
         for i in range(len(fields)):
             currentContent = suggestion.split(f"**{fields[i]}**")
@@ -39,14 +39,15 @@ class Suggestation(commands.Cog):
             await ctx.send(f"Found {len(currentContent)} of: **{fields[i]}**")
 
             if len(currentContent) > 2:
-                return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
+                #return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
+                return self.ErrorReturn(self, ctx, f"Entered too many of this field: **{fields[i]}**")
 
             elif len(currentContent) > 2:
                 return await ctx.send(f"Field not found or nothing found within it, please enter something"
                                       f"even if it is N/A for the field: **{fields[i]}**")
 
             if i < len(fields) - 1:
-                currentContent = currentContent[1].split(f"**{fields[i+1]}**")
+                currentContent = currentContent[1].split(f"**{fields[i + 1]}**")
 
                 if len(currentContent) == 1:
                     return await ctx.send(f"Not enough fields in message. The field: {fields[i]} is not the last one.")
@@ -60,9 +61,14 @@ class Suggestation(commands.Cog):
                             value=currentContent,
                             inline=False)
 
-
-        channel = get(ctx.guild.text_channels, id=732054706381127740) #800328370252415006
+        channel = get(ctx.guild.text_channels, id=732054706381127740)  # 800328370252415006
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
         await ctx.message.delete()
+
+    async def ErrorReturn(self, ctx, message):
+        embed = discord.Embed(color=discord.Color.from_rgb(255, 0, 000))
+
+        embed.add_field(name="ERROR ADDING SUGGESTION", value=message, inline=False)
+        await ctx.send("", embed=embed)
