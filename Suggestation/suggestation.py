@@ -10,5 +10,7 @@ class Suggestation(commands.Cog):
     async def suggest(self, ctx, suggestion):
         """This does stuff!"""
         # Your code will go here
-        await ctx.send("I can do stuff!" + suggestion)
+        self.all_commands.clear()
+        #await  ctx.send("", )
 
+        await ctx.send("I can do stuff!" + suggestion)
