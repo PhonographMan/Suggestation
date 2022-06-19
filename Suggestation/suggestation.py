@@ -31,9 +31,9 @@ class Suggestation(commands.Cog):
             "ANY OTHER USEFUL INFORMATION"
             ]
 
-        for i in range(fields.count()):
+        for i in range(len(fields)):
             currentContent = suggestion.split(f"**{fields[i]}**")
-            if currentContent.count() > 2:
+            if len(currentContent) > 2:
                 return await ctx.send(f"Found two **{fields[i]}**")
 
         suggestion = suggestion.split("**SUGGESTION**")
