@@ -39,7 +39,7 @@ class Suggestation(commands.Cog):
             if len(currentContent) > 2:
                 return await ctx.send(f"Found two **{fields[i]}**")
 
-            if i < len(fields):
+            if i < len(fields) - 1:
                 currentContent = currentContent[1].split(f"**{fields[i+1]}**")
 
             currentContent = currentContent[0]
