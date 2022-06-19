@@ -16,6 +16,8 @@ class Suggestation(commands.Cog):
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
         # 800328370252415006
         suggestionChannel = 732054706381127740
+        suggestionPostChannel = 732054706381127740
+        roleMention = "<@&988180927903592538>"
 
         if ctx.channel.id != suggestionChannel:
             return
@@ -62,13 +64,11 @@ class Suggestation(commands.Cog):
                             value=currentContent,
                             inline=False)
 
-        embed.set_author(name="Suggestation: <@988180927903592538>")
-
-        embed.add_field(name="Attempting mention in a field",
-                        value="<@&988180927903592538>",
+        embed.add_field(name="Suggestation by Lord_Bones",
+                        value=roleMention,
                         inline=False)
 
-        channel = get(ctx.guild.text_channels, id=suggestionChannel)
+        channel = get(ctx.guild.text_channels, id=suggestionPostChannel)
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
