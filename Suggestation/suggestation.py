@@ -67,8 +67,8 @@ class Suggestation(commands.Cog):
         await msg.add_reaction("<:emoji:731293934856175687>")
         await ctx.message.delete()
 
-    async def ErrorReturn(ctx, message):
+    async def ErrorReturn(sender, message):
         embed = discord.Embed(color=discord.Color.from_rgb(255, 0, 000))
 
         embed.add_field(name="ERROR ADDING SUGGESTION", value=message, inline=False)
-        await ctx.send("", embed=embed)
+        await sender.send("", embed=embed)
