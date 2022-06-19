@@ -20,8 +20,8 @@ class Suggestation(commands.Cog):
             #color=await ctx.embed_colour(),
             color=discord.Color.from_rgb(255, 0, 255)
         )
-        
-        embed.set_thumbnail(ctx.author.avatar_url)
+
+        embed.set_thumbnail(f"{ctx.author.avatar_url}")
 
         player = f"{ctx.author.name}#{ctx.author.discriminator}"
         embed.add_field(name="SUBMITTER", value=player, inline=False)
