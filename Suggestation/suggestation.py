@@ -33,6 +33,9 @@ class Suggestation(commands.Cog):
 
         for i in range(len(fields)):
             currentContent = suggestion.split(f"**{fields[i]}**")
+
+            await ctx.send(f"Found {len(currentContent)} of: **{fields[i]}**")
+
             if len(currentContent) > 2:
                 return await ctx.send(f"Found two **{fields[i]}**")
 
