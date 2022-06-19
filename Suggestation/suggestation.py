@@ -31,4 +31,5 @@ class Suggestation(commands.Cog):
 
         channel = get(ctx.guild.text_channels, id=800328370252415006)
         msg = await channel.send("", embed=embed)
-        start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
+        await msg.add_reaction(":idisagree:")
+        #start_adding_reactions(msg, ReactionPredicate.with_emojis(emojis=":idisagree:", emoji=))
