@@ -15,12 +15,14 @@ class Suggestation(commands.Cog):
     async def suggest(self, ctx, suggestion):
         """This does stuff!"""
         embed = discord.Embed(
-            title="Suggestion",
             #color=await ctx.embed_colour(),
             color=discord.Color.from_rgb(255, 0, 255),
-            description="Special Heads for the months of May/June given out to recent graduates to celebrate our Dominionites RL Accomplishment"
+            description=""
         )
 
+        embed.add_field(name="Submitter", value=f"Walnut (she/her/they/them)#8008", inline=False)
+
+        embed.add_field(name="Suggestion", value=f"Special Heads for the months of May/June given out to recent graduates to celebrate our Dominionites RL Accomplishment", inline=False)
         embed.add_field(name="IS YOUR IDEA AN EXISTING PLUGIN OR DATAPACK?", value=f"no", inline=False)
         embed.add_field(name="WHY SHOULD WE ADD THIS SUGGESTION?", value=f"I think it would be a fun way to celebrate members of our community as that's a major life event for many people. We have a lot of younger people on the server and it would be a nice way to show some support.", inline=False)
         embed.add_field(name="ANY OTHER USEFUL INFORMATION", value=f"Just an addition for community spirit", inline=False)
