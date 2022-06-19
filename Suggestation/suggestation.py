@@ -22,7 +22,8 @@ class Suggestation(commands.Cog):
             description=""
         )
 
-        embed.add_field(name="Submitter", value=f"Walnut (she/her/they/them)#8008", inline=False)
+        player = f"{ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id}"
+        embed.add_field(name="SUBMITTER", value=player, inline=False)
 
         fields = [
             "SUGGESTION",
@@ -57,6 +58,7 @@ class Suggestation(commands.Cog):
             embed.add_field(name=fields[i],
                             value=currentContent,
                             inline=False)
+
 
         channel = get(ctx.guild.text_channels, id=732054706381127740) #800328370252415006
         msg = await channel.send("", embed=embed)
