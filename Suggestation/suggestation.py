@@ -37,10 +37,18 @@ class Suggestation(commands.Cog):
             await ctx.send(f"Found {len(currentContent)} of: **{fields[i]}**")
 
             if len(currentContent) > 2:
-                return await ctx.send(f"Found two **{fields[i]}**")
+                return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
+
+            elif len(currentContent) > 2:
+                return await ctx.send(f"Field not found or nothing found within it, please enter something"
+                                      f"even if it is N/A for the field: **{fields[i]}**")
 
             if i < len(fields) - 1:
                 currentContent = currentContent[1].split(f"**{fields[i+1]}**")
+
+                if len(currentContent) == 1:
+                    return await ctx.send(f"Not enough fields in message. The field: {fields[i]} is not the last one.")
+
                 currentContent = currentContent[0]
 
             else:
@@ -50,16 +58,7 @@ class Suggestation(commands.Cog):
                             value=currentContent,
                             inline=False)
 
-        #suggestion = suggestion.split(f"**SUGGESTION**: {suggestion}")
-
-        #await ctx.send(f"**SUGGESTION**: {suggestion}")
-
-        #embed.add_field(name="SUGGESTION", value=f"Special Heads for the months of May/June given out to recent graduates to celebrate our Dominionites RL Accomplishment", inline=False)
-        #embed.add_field(name="IS YOUR IDEA AN EXISTING PLUGIN OR DATAPACK?", value=f"no", inline=False)
-        #embed.add_field(name="WHY SHOULD WE ADD THIS SUGGESTION?", value=f"I think it would be a fun way to celebrate members of our community as that's a major life event for many people. We have a lot of younger people on the server and it would be a nice way to show some support.", inline=False)
-        #embed.add_field(name="ANY OTHER USEFUL INFORMATION", value=f"Just an addition for community spirit", inline=False)
-
-        channel = get(ctx.guild.text_channels, id=800328370252415006)
+        channel = get(ctx.guild.text_channels, id=732054706381127740) #800328370252415006
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
