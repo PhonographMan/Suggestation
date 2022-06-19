@@ -62,4 +62,4 @@ class Suggestation(commands.Cog):
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
-        ctx.message.delete()
+        await ctx.message.delete()
