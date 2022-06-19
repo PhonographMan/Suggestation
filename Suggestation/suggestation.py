@@ -6,14 +6,6 @@ from redbot.core.utils import embed
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate
 
-
-async def ErrorReturn(sender, message):
-    embed = discord.Embed(color=discord.Color.from_rgb(255, 0, 000))
-
-    embed.add_field(name="ERROR ADDING SUGGESTION", value=message, inline=False)
-    return await sender.send("", embed=embed)
-
-
 class Suggestation(commands.Cog):
     """My custom cog"""
 
@@ -42,12 +34,9 @@ class Suggestation(commands.Cog):
 
         for i in range(len(fields)):
             currentContent = suggestion.split(f"**{fields[i]}**")
-
-            await ctx.send(f"Found {len(currentContent)} of: **{fields[i]}**")
-
+            
             if len(currentContent) > 2:
-                #return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
-                return ErrorReturn(sender=ctx, message=f"Entered too many of this field: **{fields[i]}**")
+                return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
 
             elif len(currentContent) > 2:
                 return await ctx.send(f"Field not found or nothing found within it, please enter something"
