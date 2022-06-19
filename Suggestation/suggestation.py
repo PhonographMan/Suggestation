@@ -41,7 +41,7 @@ class Suggestation(commands.Cog):
 
         suggestion = suggestion.split(f"**SUGGESTION**: {suggestion}")
 
-
+        await ctx.send(f"**SUGGESTION**: {suggestion}")
 
         embed.add_field(name="SUGGESTION", value=f"Special Heads for the months of May/June given out to recent graduates to celebrate our Dominionites RL Accomplishment", inline=False)
         embed.add_field(name="IS YOUR IDEA AN EXISTING PLUGIN OR DATAPACK?", value=f"no", inline=False)
