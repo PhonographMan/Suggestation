@@ -7,6 +7,13 @@ from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate
 
 
+async def ErrorReturn(sender, message):
+    embed = discord.Embed(color=discord.Color.from_rgb(255, 0, 000))
+
+    embed.add_field(name="ERROR ADDING SUGGESTION", value=message, inline=False)
+    return await sender.send("", embed=embed)
+
+
 class Suggestation(commands.Cog):
     """My custom cog"""
 
@@ -40,7 +47,7 @@ class Suggestation(commands.Cog):
 
             if len(currentContent) > 2:
                 #return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
-                return self.ErrorReturn(sender=ctx, message=f"Entered too many of this field: **{fields[i]}**")
+                return ErrorReturn(sender=ctx, message=f"Entered too many of this field: **{fields[i]}**")
 
             elif len(currentContent) > 2:
                 return await ctx.send(f"Field not found or nothing found within it, please enter something"
@@ -66,9 +73,3 @@ class Suggestation(commands.Cog):
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
         await ctx.message.delete()
-
-    def ErrorReturn(self, sender, message):
-        embed = discord.Embed(color=discord.Color.from_rgb(255, 0, 000))
-
-        embed.add_field(name="ERROR ADDING SUGGESTION", value=message, inline=False)
-        return await sender.send("", embed=embed)
