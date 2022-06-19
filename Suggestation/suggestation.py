@@ -17,7 +17,7 @@ class Suggestation(commands.Cog):
         embed = discord.Embed(
             title="Suggestion",
             #color=await ctx.embed_colour(),
-            color=await discord.Color("#F0F000"),
+            color=discord.Color.from_rgb(255, 0, 255),
             description="Special Heads for the months of May/June given out to recent graduates to celebrate our Dominionites RL Accomplishment"
         )
 
