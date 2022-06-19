@@ -14,7 +14,7 @@ class Suggestation(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def suggest(self, ctx, suggestion):
+    async def suggest(self, ctx: commands.Context, *, suggestion: str):
         """This does stuff!"""
         embed = discord.Embed(
             #color=await ctx.embed_colour(),
