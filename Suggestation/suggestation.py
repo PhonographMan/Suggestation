@@ -14,12 +14,11 @@ class Suggestation(commands.Cog):
 
     @commands.command()
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
+        # 800328370252415006
+        suggestionChannel = 732054706381127740
 
-        channel = get(ctx.guild.text_channels, id=732054706381127740)
-        if ctx.channel.id != 732054706381127740:
+        if ctx.channel.id != suggestionChannel:
             return
-
-
 
         embed = discord.Embed(
             # color=await ctx.embed_colour(),
@@ -63,7 +62,7 @@ class Suggestation(commands.Cog):
                             value=currentContent,
                             inline=False)
 
-        channel = get(ctx.guild.text_channels, id=732054706381127740)  # 800328370252415006
+        channel = get(ctx.guild.text_channels, id=suggestionChannel)
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
