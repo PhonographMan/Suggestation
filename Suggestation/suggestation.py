@@ -7,7 +7,8 @@ class Suggestation(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def mycom(self, ctx):
+    async def suggest(self, ctx, suggestion):
         """This does stuff!"""
         # Your code will go here
-        await ctx.send("I can do stuff!")
+        await ctx.send("I can do stuff!" + suggestion)
+
