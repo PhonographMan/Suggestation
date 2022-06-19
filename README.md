@@ -13,7 +13,7 @@ A basic suggestion bot for Dominion.
 8. ~~Deletes the messaged the player typed if successful~~
 9. ~~Replies if they're not successful~~
 10. ~~Only listens in the correct channel.~~
-11. Add role tag
+11. ~~Add role tag~~
 
 # Stretch goals
 1. Configurable guilds/channels
