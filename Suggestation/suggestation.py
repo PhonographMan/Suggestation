@@ -22,14 +22,16 @@ class Suggestation(commands.Cog):
         roleMention = "<@&988180927903592538>"
 
         sentChannel = ctx.channel
-        if self.config.sent_channel_id is not None:
-            sentChannel = self.config.sent_channel_id
+        configSentChannel = get(ctx.guild.text_channels, id=await self.config.sent_channel_id())
+        if configSentChannel is not None:
+            sentChannel = configSentChannel
 
         listenChannel = ctx.channel
-        if self.config.listen_channel_id is not None:
-            await ctx.send(f"Listen channel is {self.config.listen_channel_id} and ctx: {ctx.channel.id}")
+        configListenChannel = get(ctx.guild.text_channels, id=await self.config.listen_channel_id())
+        if configListenChannel is not None:
+            await ctx.send(f"Listen channel is {configListenChannel} and ctx: {ctx.channel.id}")
 
-            listenChannel = self.config.listen_channel_id
+            listenChannel = configListenChannel
 
 
         if ctx.channel.id != listenChannel:
