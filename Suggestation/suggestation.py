@@ -1,7 +1,7 @@
 import discord
 from discord import client
 from discord.utils import get
-from redbot.core import commands
+from redbot.core import commands, Config
 from redbot.core.utils import embed
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate
@@ -11,6 +11,7 @@ class Suggestation(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.config = Config.get_conf(self, identifier=2115656421364, force_registration=True)
         self.config.register_global(server_id=None, listen_channel_id=None, sent_channel_id=None)
 
     @commands.command()
