@@ -16,6 +16,6 @@ A basic suggestion bot for Dominion.
 11. ~~Add role tag~~
 
 # Stretch goals
-1. Configurable guilds/channels
+1. ~~Configurable guilds/channels~~
 2. Configurable fields
 3. Configurable role tag
