@@ -162,12 +162,8 @@ class Suggestation(commands.Cog):
         """
 
         if not channel:
-            if channel is None:
-                return await self.ErrorMessageBox(ctx, f"Please enter a channel from this Guild or *NONE*")
-
-            elif channel == "*NONE*":
-                await self.config.sent_channel_id.clear()
-                return await self.AcceptMessageBox(ctx, f"Suggestation send channel is reset to user channel")
+            await self.config.sent_channel_id.set(None)
+            return await self.AcceptMessageBox(ctx, f"Suggestation send channel is reset to user channel")
 
         await self.config.sent_channel_id.set(channel.id)
         return await self.AcceptMessageBox(ctx, f"Suggestation will send to {channel.mention}")
