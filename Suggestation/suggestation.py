@@ -90,8 +90,8 @@ class Suggestation(commands.Cog):
                         value=roleMention,
                         inline=False)
 
-        channel = get(ctx.guild.text_channels, id=sentChannel)
-        msg = await channel.send("", embed=embed)
+        #channel = get(ctx.guild.text_channels, id=sentChannel)
+        msg = await sentChannel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
         await ctx.message.delete()
