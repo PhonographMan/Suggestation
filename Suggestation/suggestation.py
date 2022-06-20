@@ -11,15 +11,25 @@ class Suggestation(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.config.register_global(server_id=None, listen_channel_id=None, sent_channel_id=None)
 
     @commands.command()
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
         # 800328370252415006
-        suggestionChannel = 732054706381127740
-        suggestionPostChannel = 732054706381127740
+        #suggestionChannel = 732054706381127740
+        #suggestionPostChannel = 732054706381127740
         roleMention = "<@&988180927903592538>"
 
-        if ctx.channel.id != suggestionChannel:
+        sentChannel = ctx.channel
+        if self.config.sent_channel_id is not None:
+            sentChannel = self.config.sent_channel_id
+
+        listenChannel = ctx.channel
+        if self.config.listen_channel_id is not None:
+            listenChannel = self.config.listen_channel_id
+
+
+        if ctx.channel.id != listenChannel:
             return
 
         embed = discord.Embed(
@@ -72,8 +82,40 @@ class Suggestation(commands.Cog):
                         value=roleMention,
                         inline=False)
 
-        channel = get(ctx.guild.text_channels, id=suggestionPostChannel)
+        channel = get(ctx.guild.text_channels, id=sentChannel)
         msg = await channel.send("", embed=embed)
         await msg.add_reaction("<:emoji:731293934822883429>")
         await msg.add_reaction("<:emoji:731293934856175687>")
         await ctx.message.delete()
+
+    @commands.command(name="listenchannel")
+    async def setsuggest_setglobal_listenchannel(
+        self,
+        ctx: commands.Context,
+        server: discord.Guild = None,
+        channel: discord.TextChannel = None,
+    ):
+        """Add channel where global suggestions should be sent."""
+        if not server:
+            server = ctx.guild
+        if not channel:
+            channel = ctx.channel
+        await self.config.server_id.set(server.id)
+        await self.config.listen_channel_id.set(channel.id)
+        await ctx.send(f"Suggestation will listen in {channel.mention}")
+
+    @commands.command(name="sentchannel")
+    async def setsuggest_setglobal_sentchannel(
+        self,
+        ctx: commands.Context,
+        server: discord.Guild = None,
+        channel: discord.TextChannel = None,
+    ):
+        """Add channel where global suggestions should be sent."""
+        if not server:
+            server = ctx.guild
+        if not channel:
+            channel = ctx.channel
+        await self.config.server_id.set(server.id)
+        await self.config.sent_channel_id.set(channel.id)
+        await ctx.send(f"Suggestation will sent to {channel.mention}")
