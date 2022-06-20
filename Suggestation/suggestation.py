@@ -101,7 +101,7 @@ class Suggestation(commands.Cog):
         #    server = ctx.guild
         if not channel:
             channel = ctx.channel
-        await self.config.server_id.set(server.id)
+        #await self.config.server_id.set(server.id)
         await self.config.listen_channel_id.set(channel.id)
         await ctx.send(f"Suggestation will listen in {channel.mention}")
 
