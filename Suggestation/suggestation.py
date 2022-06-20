@@ -27,6 +27,8 @@ class Suggestation(commands.Cog):
 
         listenChannel = ctx.channel
         if self.config.listen_channel_id is not None:
+            ctx.send(f"Listen channel is {self.config.listen_channel_id} and ctx: {ctx.channel.id}")
+
             listenChannel = self.config.listen_channel_id
 
 
