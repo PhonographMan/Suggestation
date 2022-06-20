@@ -140,12 +140,20 @@ class Suggestation(commands.Cog):
         ctx: commands.Context,
         channel: discord.TextChannel = None,
     ):
-        """Add channel where global suggestions should be sent."""
+        """
+        SetListenChannel Sets the channel suggestions is listening in by setting listen_channel_id config
+
+        :param ctx: The command which was sent
+        :param channel: Channel to update to. If blank will default to nothing.
+        :return: Function awaits response
+        """
 
         if not channel:
-            channel = ctx.channel
+            await self.config.listen_channel_id.set(None)
+            return await self.AcceptMessageBox(ctx, f"Suggestation will listen in all channels.")
+
         await self.config.listen_channel_id.set(channel.id)
-        await ctx.send(f"Suggestation will listen in {channel.mention}")
+        return await self.AcceptMessageBox(ctx, f"Suggestation will listen only to {channel.mention}")
 
 
     async def SetSentChannel(
@@ -157,8 +165,8 @@ class Suggestation(commands.Cog):
         SetSentChannel Sets the channel suggestions would be sent into by setting the config sent_channel.
 
         :param ctx: The command which was sent
-        :param channel: Channel to update to. If blank will return with an error. If *NONE* will default to nothing.
-        :return: Function awaits responce
+        :param channel: Channel to update to. If blank will default to nothing.
+        :return: Function awaits response
         """
 
         if not channel:
