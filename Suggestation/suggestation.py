@@ -55,21 +55,16 @@ class Suggestation(commands.Cog):
             if len(currentContent) > 2:
                 return await self.ErrorMessageBox(ctx,
                                                   f"Entered too many of this field: **{fields[i]}**")
-                #return await ctx.send(f"Entered too many of this field: **{fields[i]}**")
 
             elif len(currentContent) == 1:
                 return await self.ErrorMessageBox(ctx,
                                                   f"Field not found or nothing found within it, please enter something"
                                       f"even if it is N/A for the field: **{fields[i]}**")
-                #return await ctx.send(f"Field not found or nothing found within it, please enter something"
-                #                      f"even if it is N/A for the field: **{fields[i]}**")
 
             elif len(currentContent) > 2:
                 return await self.ErrorMessageBox(ctx,
                                                   f"Field not found or nothing found within it, please enter something"
                                                   f"even if it is N/A for the field: **{fields[i]}**")
-                #return await ctx.send(f"Field not found or nothing found within it, please enter something"
-                #                      f"even if it is N/A for the field: **{fields[i]}**")
 
             if i < len(fields) - 1:
                 currentContent = currentContent[1].split(f"**{fields[i + 1]}**")
@@ -78,7 +73,6 @@ class Suggestation(commands.Cog):
                     return await self.ErrorMessageBox(ctx,
                                                       f"Not enough fields in message. "
                                                       f"The field: {fields[i]} is not the last one.")
-                    #return await ctx.send(f"Not enough fields in message. The field: {fields[i]} is not the last one.")
 
                 currentContent = currentContent[0]
 
@@ -104,8 +98,20 @@ class Suggestation(commands.Cog):
             suggestion: str
     ):
         embed = discord.Embed(
-            author="Something went wrong",
+            title="Something went wrong",
             color=discord.Color.from_rgb(255, 0, 0),
+            description=suggestion
+        )
+
+        return await ctx.send("", embed=embed)
+
+    async def AcceptMessageBox(
+            self,
+            ctx: commands.Context,
+            suggestion: str
+    ):
+        embed = discord.Embed(
+            color=discord.Color.from_rgb(20, 219, 73),
             description=suggestion
         )
 
@@ -113,7 +119,7 @@ class Suggestation(commands.Cog):
 
 
     @commands.command(name="suggestation")
-    async def setsuggest_setglobal_suggestation_staffcommands(
+    async def CommandSuggestation(
         self,
         ctx: commands.Context,
         suggestion: str,
@@ -129,7 +135,7 @@ class Suggestation(commands.Cog):
         else:
             await ctx.send("Command not recognised.")
 
-    async def setsuggest_setglobal_listenchannel(
+    async def SetListenChannel(
         self,
         ctx: commands.Context,
         channel: discord.TextChannel = None,
@@ -141,15 +147,27 @@ class Suggestation(commands.Cog):
         await self.config.listen_channel_id.set(channel.id)
         await ctx.send(f"Suggestation will listen in {channel.mention}")
 
-    async def setsuggest_setglobal_sentchannel(
+
+    async def SetSentChannel(
             self,
             ctx: commands.Context,
             channel: discord.TextChannel = None,
     ):
-        """Add channel where global suggestions should be sent."""
+        """
+        SetSentChannel Sets the channel suggestions would be sent into by setting the config sent_channel.
+
+        :param ctx: The command which was sent
+        :param channel: Channel to update to. If blank will return with an error. If *NONE* will default to nothing.
+        :return: Function awaits responce
+        """
 
         if not channel:
-            channel = ctx.channel
+            if channel is None:
+                return await self.ErrorMessageBox(ctx, f"Please enter a channel from this Guild or *NONE*")
+
+            elif channel == "*NONE*":
+                await self.config.sent_channel_id.set(None)
+                return await self.AcceptMessageBox(ctx, f"Suggestation send channel is reset to user channel")
 
         await self.config.sent_channel_id.set(channel.id)
-        await ctx.send(f"Suggestation will send to {channel.mention}")
+        return await self.AcceptMessageBox(ctx, f"Suggestation will send to {channel.mention}")
