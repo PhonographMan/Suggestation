@@ -34,7 +34,7 @@ class Suggestation(commands.Cog):
             listenChannel = configListenChannel
 
 
-        if ctx.channel.id != listenChannel:
+        if ctx.channel.id != listenChannel.id:
             return
 
         embed = discord.Embed(
