@@ -98,10 +98,10 @@ class Suggestation(commands.Cog):
     ):
         """Add channel where global suggestions should be sent."""
         if suggestion != "listenchannel":
-            await self.setsuggest_setglobal_listenchannel(self, ctx, channel)
-            
+            await self.setsuggest_setglobal_listenchannel(ctx, channel)
+
         elif suggestion != "sentchannel":
-            await self.setsuggest_setglobal_sentchannel(self, ctx, channel)
+            await self.setsuggest_setglobal_sentchannel(ctx, channel)
 
     async def setsuggest_setglobal_listenchannel(
         self,
