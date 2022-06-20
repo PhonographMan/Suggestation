@@ -28,6 +28,9 @@ class Suggestation(commands.Cog):
 
         listenChannel = ctx.channel
         configListenChannel = get(ctx.guild.text_channels, id=await self.config.listen_channel_id())
+        if not configListenChannel:
+            return await ctx.send("Uh oh, looks like your Admins haven't added the required channel.")
+        
         if configListenChannel is not None:
             await ctx.send(f"Listen channel is {configListenChannel} and ctx: {ctx.channel.id}")
 
