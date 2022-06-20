@@ -105,18 +105,19 @@ class Suggestation(commands.Cog):
         await self.config.listen_channel_id.set(channel.id)
         await ctx.send(f"Suggestation will listen in {channel.mention}")
 
-    @commands.command(name="suggestation sentchannel")
+    @commands.command(name="suggestation")
     async def setsuggest_setglobal_sentchannel(
         self,
         ctx: commands.Context,
-        server: discord.Guild = None,
+        suggestion: str,
         channel: discord.TextChannel = None,
     ):
         """Add channel where global suggestions should be sent."""
-        #if not server:
-        #    server = ctx.guild
+        if suggestion != "sentchannel":
+            return
+
         if not channel:
             channel = ctx.channel
-        #await self.config.server_id.set(server.id)
+
         await self.config.sent_channel_id.set(channel.id)
-        await ctx.send(f"Suggestation will sent to {channel.mention}")
+        await ctx.send(f"Suggestation will send to {channel.mention}")
