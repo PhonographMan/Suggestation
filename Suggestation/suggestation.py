@@ -90,7 +90,7 @@ class Suggestation(commands.Cog):
         await ctx.message.delete()
 
     @commands.command(name="suggestation")
-    async def setsuggest_setglobal_listenchannel(
+    async def setsuggest_setglobal_suggestation_staffcommands(
         self,
         ctx: commands.Context,
         suggestion: str,
@@ -98,23 +98,28 @@ class Suggestation(commands.Cog):
     ):
         """Add channel where global suggestions should be sent."""
         if suggestion != "listenchannel":
-            return
+            await self.setsuggest_setglobal_listenchannel(self=self, ctx=ctx, channel=channel)
+        elif suggestion != "sentchannel":
+            await self.setsuggest_setglobal_sentchannel(self=self, ctx=ctx, channel=channel)
+
+    async def setsuggest_setglobal_listenchannel(
+        self,
+        ctx: commands.Context,
+        channel: discord.TextChannel = None,
+    ):
+        """Add channel where global suggestions should be sent."""
 
         if not channel:
             channel = ctx.channel
         await self.config.listen_channel_id.set(channel.id)
         await ctx.send(f"Suggestation will listen in {channel.mention}")
 
-    @commands.command(name="suggestation")
     async def setsuggest_setglobal_sentchannel(
-        self,
-        ctx: commands.Context,
-        suggestion: str,
-        channel: discord.TextChannel = None,
+            self,
+            ctx: commands.Context,
+            channel: discord.TextChannel = None,
     ):
         """Add channel where global suggestions should be sent."""
-        if suggestion != "sentchannel":
-            return
 
         if not channel:
             channel = ctx.channel
