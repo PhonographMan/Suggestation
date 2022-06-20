@@ -89,23 +89,23 @@ class Suggestation(commands.Cog):
         await msg.add_reaction("<:emoji:731293934856175687>")
         await ctx.message.delete()
 
-    @commands.command(name="listenchannel")
+    @commands.command(name="suggestation listenchannel")
     async def setsuggest_setglobal_listenchannel(
         self,
         ctx: commands.Context,
-        server: discord.Guild = None,
+        #server: discord.Guild = None,
         channel: discord.TextChannel = None,
     ):
         """Add channel where global suggestions should be sent."""
-        if not server:
-            server = ctx.guild
+        #if not server:
+        #    server = ctx.guild
         if not channel:
             channel = ctx.channel
         await self.config.server_id.set(server.id)
         await self.config.listen_channel_id.set(channel.id)
         await ctx.send(f"Suggestation will listen in {channel.mention}")
 
-    @commands.command(name="sentchannel")
+    @commands.command(name="suggestation sentchannel")
     async def setsuggest_setglobal_sentchannel(
         self,
         ctx: commands.Context,
@@ -113,10 +113,10 @@ class Suggestation(commands.Cog):
         channel: discord.TextChannel = None,
     ):
         """Add channel where global suggestions should be sent."""
-        if not server:
-            server = ctx.guild
+        #if not server:
+        #    server = ctx.guild
         if not channel:
             channel = ctx.channel
-        await self.config.server_id.set(server.id)
+        #await self.config.server_id.set(server.id)
         await self.config.sent_channel_id.set(channel.id)
         await ctx.send(f"Suggestation will sent to {channel.mention}")
