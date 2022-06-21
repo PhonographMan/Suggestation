@@ -109,7 +109,7 @@ class Suggestation(commands.Cog):
 
         msg = await ctx.send("", embed=embed)
         try:
-            await self.bot.wait(timeout=30)
+            await self.bot.wait_for("reaction_add", timeout=30, check=msg)
         except asyncio.TimeoutError:
             await msg.delete()
 
@@ -125,7 +125,7 @@ class Suggestation(commands.Cog):
 
         msg = await ctx.send("", embed=embed)
         try:
-            await self.bot.wait(timeout=30)
+            await self.bot.wait_for("reaction_add", timeout=30, check=msg)
         except asyncio.TimeoutError:
             await msg.delete()
 
