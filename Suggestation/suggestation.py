@@ -117,32 +117,6 @@ class Suggestation(commands.Cog):
 
         return await ctx.send("", embed=embed)
 
-
-    @commands.command(name="suggestation")
-    async def CommandSuggestation(
-        self,
-        ctx: commands.Context,
-        suggestion: str,
-        channel: discord.TextChannel = None,
-    ):
-        """
-         CommandSuggestation Setup and modification command /suggestation
-
-         :param ctx: The command which was sent
-         :param suggestion: The sub-command name
-         :param channel: The channel
-         :return: Function awaits response
-         """
-
-        if suggestion == "listenchannel":
-            await self.SetListenChannel(ctx, channel)
-
-        elif suggestion == "sentchannel":
-            await self.SetSentChannel(ctx, channel)
-
-        else:
-            await ctx.send("Command not recognised.")
-
     @commands.command(name="suggestation")
     async def CommandSuggestation(
             self,
@@ -159,7 +133,24 @@ class Suggestation(commands.Cog):
          :return: Function awaits response
          """
 
-        await ctx.send(f"Command not recognised. {textt}")
+        if suggestion == "listenchannel":
+            channel = get(ctx.guild.text_channels, id=textt)
+            if channel is not None:
+                return await self.SetListenChannel(ctx, channel)
+
+            else:
+                return await self.ErrorMessageBox(ctx,f"I didn't find that channel...")
+
+        elif suggestion == "sentchannel":
+            channel = get(ctx.guild.text_channels, id=textt)
+            if channel is not None:
+                return await self.SetSentChannel(ctx, channel)
+
+            else:
+                return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
+
+        else:
+            return await self.ErrorMessageBox(ctx, "Command not recognised.")
 
     async def SetListenChannel(
         self,
