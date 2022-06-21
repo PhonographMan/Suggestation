@@ -138,9 +138,8 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context,
             suggestion: str,
-            first: typing.Union[discord.TextChannel, str] = "",
             *,
-            second: str = "",
+            first: typing.Union[discord.TextChannel, str] = "",
     ):
         """
          CommandSuggestation Setup and modification command /suggestation
@@ -171,10 +170,10 @@ class Suggestation(commands.Cog):
             return await self.ListSuggestFields(ctx)
 
         elif suggestion == "addfield":
-            return await self.AddSuggestFieldToEnd(ctx, second)
+            return await self.AddSuggestFieldToEnd(ctx, first)
 
         elif suggestion == "removefield":
-            return await self.RemoveSuggestField(ctx, second)
+            return await self.RemoveSuggestField(ctx, first)
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
