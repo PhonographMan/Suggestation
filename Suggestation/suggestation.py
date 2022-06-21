@@ -151,6 +151,8 @@ class Suggestation(commands.Cog):
          :return: Function awaits response
          """
 
+        await ctx.send(f"suggestion: {suggestion}, first: {first}, Second:{second}")
+
         if suggestion == "listenchannel":
             if isinstance(first, discord.TextChannel):
                 return await self.SetListenChannel(ctx, first)
