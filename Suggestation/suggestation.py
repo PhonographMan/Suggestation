@@ -143,6 +143,24 @@ class Suggestation(commands.Cog):
         else:
             await ctx.send("Command not recognised.")
 
+    @commands.command(name="suggestation")
+    async def CommandSuggestation(
+            self,
+            ctx: commands.Context,
+            suggestion: str,
+            textt: str
+    ):
+        """
+         CommandSuggestation Setup and modification command /suggestation
+
+         :param ctx: The command which was sent
+         :param suggestion: The sub-command name
+         :param textt: The channel
+         :return: Function awaits response
+         """
+
+        await ctx.send(f"Command not recognised. {textt}")
+
     async def SetListenChannel(
         self,
         ctx: commands.Context,
