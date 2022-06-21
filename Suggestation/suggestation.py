@@ -139,7 +139,7 @@ class Suggestation(commands.Cog):
             ctx: commands.Context,
             suggestion: str,
             first: typing.Union[discord.TextChannel, str] = "",
-            second: typing.Union[int, str] = None,
+            second: typing.Union[int, str] = "",
             *,
             third: str = "",
     ):
@@ -270,7 +270,7 @@ class Suggestation(commands.Cog):
         """
         await ctx.message.delete()
 
-        if str == "":
+        if newField == "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
 
         newField = newField.capitalize()
@@ -298,7 +298,7 @@ class Suggestation(commands.Cog):
 
         await ctx.message.delete()
 
-        if str == "":
+        if removeField "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
 
         removeField = removeField.capitalize()
