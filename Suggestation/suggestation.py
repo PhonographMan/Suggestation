@@ -125,7 +125,15 @@ class Suggestation(commands.Cog):
         suggestion: str,
         channel: discord.TextChannel = None,
     ):
-        """Add channel where global suggestions should be sent."""
+        """
+         CommandSuggestation Setup and modification command /suggestation
+
+         :param ctx: The command which was sent
+         :param suggestion: The sub-command name
+         :param channel: The channel
+         :return: Function awaits response
+         """
+
         if suggestion == "listenchannel":
             await self.SetListenChannel(ctx, channel)
 
