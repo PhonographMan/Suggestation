@@ -220,13 +220,15 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context
     ):
-        suggestionFields = get(list, id=await self.config.guild(ctx.guild).suggestion_fields())
+        #suggestionFields = get(list, id=await self.config.guild(ctx.guild).suggestion_fields())
 
         fieldsOutput = "No fields entered"
-        if isinstance(suggestionFields, list):
-            if len(suggestionFields) > 0:
-                for i in range(len(suggestionFields)):
-                    fieldsOutput = f"{fieldsOutput}\n[{i}] - {suggestionFields[i]}"
+        async with self.config.suggestion_fields() as suggestionFields:
+
+            if isinstance(suggestionFields, list):
+                if len(suggestionFields) > 0:
+                    for i in range(len(suggestionFields)):
+                        fieldsOutput = f"{fieldsOutput}\n[{i}] - {suggestionFields[i]}"
 
         embed = discord.Embed(
             title="Suggestion Fields",
