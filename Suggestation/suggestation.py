@@ -16,7 +16,11 @@ class Suggestation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=2115656421364, force_registration=True)
-        self.config.register_global(server_id=None, listen_channel_id=None, sent_channel_id=None)
+        self.config.register_guild(
+            listen_channel_id=None,
+            sent_channel_id=None,
+            suggestion_fields=[]
+        )
 
     @commands.command()
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
