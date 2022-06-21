@@ -139,9 +139,8 @@ class Suggestation(commands.Cog):
             ctx: commands.Context,
             suggestion: str,
             first: typing.Union[discord.TextChannel, str] = "",
-            second: typing.Union[int, str] = "",
             *,
-            third: str = "",
+            second: str = "",
     ):
         """
          CommandSuggestation Setup and modification command /suggestation
