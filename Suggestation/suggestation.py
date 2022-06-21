@@ -1,3 +1,5 @@
+import typing
+
 import discord
 from discord import client
 from discord.utils import get
@@ -118,57 +120,38 @@ class Suggestation(commands.Cog):
         return await ctx.send("", embed=embed)
 
     @commands.command(name="suggestation")
-    @commands.group(sentchannel=True)
     async def CommandSuggestation(
             self,
             ctx: commands.Context,
             suggestion: str,
-            textt: str
+            what: typing.Union[discord.TextChannel, str]
     ):
         """
          CommandSuggestation Setup and modification command /suggestation
 
          :param ctx: The command which was sent
          :param suggestion: The sub-command name
-         :param textt: The channel
+         :param what: The channel
          :return: Function awaits response
          """
 
         if suggestion == "listenchannel":
-            channel = get(ctx.guild.text_channels, id=textt)
-            if channel is not None:
-                return await self.SetListenChannel(ctx, channel)
+            #channel = get(ctx.guild.text_channels, id=textt)
+            if what is discord.TextChannel:
+                return await self.SetListenChannel(ctx, what)
 
             else:
                 return await self.ErrorMessageBox(ctx,f"I didn't find that channel...")
 
         elif suggestion == "sentchannel":
-            channel = get(ctx.guild.text_channels, id=textt)
-            if channel is not None:
-                return await self.SetSentChannel(ctx, channel)
+            if what is discord.TextChannel:
+                return await self.SetSentChannel(ctx, what)
 
             else:
                 return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
-
-    @commands.command(name="suggestation")
-    @commands.group(listenchannel=True)
-    async def CommandSuggestation(
-            self,
-            ctx: commands.Context,
-            channel: discord.TextChannel = None,
-    ):
-        """
-         CommandSuggestation Setup and modification command /suggestation
-
-         :param ctx: The command which was sent
-         :param textt: The channel
-         :return: Function awaits response
-         """
-
-        return await self.SetListenChannel(ctx, channel)
 
     async def SetListenChannel(
         self,
