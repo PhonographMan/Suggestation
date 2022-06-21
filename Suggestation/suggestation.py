@@ -166,6 +166,9 @@ class Suggestation(commands.Cog):
             else:
                 return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
 
+        elif suggestion == "list":
+            return await self.ListSuggestFields(ctx)
+
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
 
@@ -184,9 +187,11 @@ class Suggestation(commands.Cog):
 
         if not channel:
             await self.config.listen_channel_id.set(None)
+            await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation will listen in all channels.")
 
         await self.config.listen_channel_id.set(channel.id)
+        await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation will listen only to {channel.mention}")
 
     async def SetSentChannel(
@@ -204,7 +209,28 @@ class Suggestation(commands.Cog):
 
         if not channel:
             await self.config.sent_channel_id.set(None)
+            await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation send channel is reset to user channel")
 
         await self.config.sent_channel_id.set(channel.id)
+        await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation will send to {channel.mention}")
+
+    async def ListSuggestFields(
+            self,
+            ctx: commands.Context
+    ):
+        suggestionFields = get(list, id=await self.config.suggestion_fields())
+
+        fieldsOutput = "No fields entered"
+        if len(suggestionFields) > 0:
+            for i in range(len(suggestionFields)):
+                fieldsOutput = f"{fieldsOutput}\n[{i}] - {suggestionFields[i]}"
+
+        embed = discord.Embed(
+            title="Suggestion Fields",
+            color=discord.Color.from_rgb(255, 0, 0),
+            description=fieldsOutput
+        )
+
+        msg = await ctx.send("", embed=embed)
