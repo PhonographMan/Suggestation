@@ -19,6 +19,7 @@ class Suggestation(commands.Cog):
         self.config.register_guild(
             listen_channel_id=None,
             sent_channel_id=None,
+            sent_channel_id2=None,
             suggestion_fields=[]
         )
 
