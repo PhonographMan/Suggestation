@@ -171,10 +171,13 @@ class Suggestation(commands.Cog):
             return await self.ListSuggestFields(ctx)
 
         elif suggestion == "addfield":
-            return await self.AddSuggestFieldToEnd(ctx, second)
+            field = f"{first} {second}"
+            return await self.AddSuggestFieldToEnd(ctx, field)
 
         elif suggestion == "removefield":
-            return await self.RemoveSuggestField(ctx, second)
+            field = f"{first} {second}"
+
+            return await self.RemoveSuggestField(ctx, field)
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
@@ -260,7 +263,7 @@ class Suggestation(commands.Cog):
     async def AddSuggestFieldToEnd(
             self,
             ctx: commands.Context,
-            newField: str
+            newField: str,
     ):
         """
         AddSuggestFieldToEnd Add a field to the end
