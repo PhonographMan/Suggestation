@@ -19,7 +19,6 @@ class Suggestation(commands.Cog):
         self.config.register_guild(
             listen_channel_id=None,
             sent_channel_id=None,
-            sent_channel_id2=None,
             suggestion_fields=[]
         )
 
@@ -29,13 +28,13 @@ class Suggestation(commands.Cog):
 
         # Get a channel to send into
         sentChannel = ctx.channel
-        configSentChannel = get(ctx.guild.text_channels, id=await self.config.sent_channel_id())
+        configSentChannel = get(ctx.guild.text_channels, id=await self.config.guild(ctx.guild).sent_channel_id())
         if configSentChannel is not None:
             sentChannel = configSentChannel
 
         # Get the channel to listen from
         listenChannel = ctx.channel
-        configListenChannel = get(ctx.guild.text_channels, id=await self.config.listen_channel_id())
+        configListenChannel = get(ctx.guild.text_channels, id=await self.config.guild(ctx.guild).listen_channel_id())
         if configListenChannel is not None:
             listenChannel = configListenChannel
 
@@ -213,7 +212,7 @@ class Suggestation(commands.Cog):
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation send channel is reset to user channel")
 
-        await self.config.sent_channel_id.set(channel.id)
+        await self.config.guild(ctx.guild).sent_channel_id.set(channel.id)
         await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation will send to {channel.mention}")
 
@@ -221,7 +220,7 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context
     ):
-        suggestionFields = get(list, id=await self.config.suggestion_fields())
+        suggestionFields = get(list, id=await self.config.guild(ctx.guild).suggestion_fields())
 
         fieldsOutput = "No fields entered"
         if len(suggestionFields) > 0:
