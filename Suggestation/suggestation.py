@@ -138,7 +138,7 @@ class Suggestation(commands.Cog):
         if suggestion == "listenchannel":
             #channel = get(ctx.guild.text_channels, id=textt)
 
-            if what is discord.TextChannel:
+            if isinstance(what, discord.TextChannel):
                 return await self.SetListenChannel(ctx, what)
 
             else:
