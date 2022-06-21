@@ -137,18 +137,19 @@ class Suggestation(commands.Cog):
 
         if suggestion == "listenchannel":
             #channel = get(ctx.guild.text_channels, id=textt)
+
             if what is discord.TextChannel:
                 return await self.SetListenChannel(ctx, what)
 
             else:
-                return await self.ErrorMessageBox(ctx,f"I didn't find that channel...")
+                return await self.ErrorMessageBox(ctx,f"I didn't find that channel...{what}")
 
         elif suggestion == "sentchannel":
             if what is discord.TextChannel:
                 return await self.SetSentChannel(ctx, what)
 
             else:
-                return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
+                return await self.ErrorMessageBox(ctx, f"I didn't find that channel...{what}")
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
