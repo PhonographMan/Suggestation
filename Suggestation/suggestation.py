@@ -138,7 +138,7 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context,
             suggestion: str,
-            first: typing.Union[discord.TextChannel, str],
+            first: typing.Union[discord.TextChannel, str] = "",
             second: typing.Union[int, str] = None,
             *,
             third: str = "",
@@ -220,15 +220,19 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context
     ):
-        #suggestionFields = get(list, id=await self.config.guild(ctx.guild).suggestion_fields())
-
         fieldsOutput = "No fields entered"
         async with self.config.guild(ctx.guild).suggestion_fields() as suggestionFields:
 
             if isinstance(suggestionFields, list):
                 if len(suggestionFields) > 0:
+
+                    # Merge Fields into a single string
+                    fieldsOutput = ""
                     for i in range(len(suggestionFields)):
-                        fieldsOutput = f"{fieldsOutput}\n[{i}] - {suggestionFields[i]}"
+                        if fieldsOutput == "":
+                            fieldsOutput = f"[{i}] - {suggestionFields[i]}"
+                        else:
+                            fieldsOutput = f"{fieldsOutput}\n[{i}] - {suggestionFields[i]}"
 
         embed = discord.Embed(
             title="Suggestion Fields",
