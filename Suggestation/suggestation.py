@@ -166,8 +166,14 @@ class Suggestation(commands.Cog):
             else:
                 return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
 
-        elif suggestion == "list":
+        elif suggestion == "listfields":
             return await self.ListSuggestFields(ctx)
+
+        elif suggestion == "addfield":
+            return await self.AddSuggestFieldToEnd(ctx, second)
+
+        elif suggestion == "removefield":
+            return await self.RemoveSuggestField(ctx, second)
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
@@ -220,6 +226,13 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context
     ):
+        """
+        ListSuggestFields Lists fields for suggestions
+
+        :param ctx: The command which was sent
+        :return: Function awaits response
+        """
+
         fieldsOutput = "No fields entered"
         async with self.config.guild(ctx.guild).suggestion_fields() as suggestionFields:
 
@@ -240,4 +253,61 @@ class Suggestation(commands.Cog):
             description=fieldsOutput
         )
 
+        await ctx.message.delete()
         msg = await ctx.send("", embed=embed)
+
+    async def AddSuggestFieldToEnd(
+            self,
+            ctx: commands.Context,
+            newField: str
+    ):
+        """
+        AddSuggestFieldToEnd Add a field to the end
+
+        :param ctx: The command which was sent
+        :param newField: The new field to add
+        :return: Function awaits response
+        """
+        await ctx.message.delete()
+
+        if str == "":
+            return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
+
+        newField = newField.capitalize()
+        if newField not in await self.config.guild(ctx.guild).suggestion_fields():
+            async with self.config.suggestion_fields() as suggestion_fields:
+                suggestion_fields.append(newField)
+            return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
+
+        else:
+            return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
+
+
+    async def RemoveSuggestField(
+            self,
+            ctx: commands.Context,
+            removeField: str
+    ):
+        """
+        AddSuggestFieldToEnd Add a field to the end
+
+        :param ctx: The command which was sent
+        :param removeField: Field to remove
+        :return: Function awaits response
+        """
+
+        await ctx.message.delete()
+
+        if str == "":
+            return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
+
+        removeField = removeField.capitalize()
+        if removeField in await self.config.guild(ctx.guild).suggestion_fields():
+            async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
+                suggestion_fields.guild(ctx.guild).remove(removeField)
+            return await self.AcceptMessageBox(ctx, f"Suggestation field removed {removeField}")
+
+        else:
+            return await self.ErrorMessageBox(ctx, f"Suggestation field {removeField} already isn't the list.")
+
+
