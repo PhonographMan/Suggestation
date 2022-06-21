@@ -118,6 +118,7 @@ class Suggestation(commands.Cog):
         return await ctx.send("", embed=embed)
 
     @commands.command(name="suggestation")
+    @commands.group(sentchannel=True)
     async def CommandSuggestation(
             self,
             ctx: commands.Context,
@@ -151,6 +152,23 @@ class Suggestation(commands.Cog):
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
+
+    @commands.command(name="suggestation")
+    @commands.group(listenchannel=True)
+    async def CommandSuggestation(
+            self,
+            ctx: commands.Context,
+            channel: discord.TextChannel = None,
+    ):
+        """
+         CommandSuggestation Setup and modification command /suggestation
+
+         :param ctx: The command which was sent
+         :param textt: The channel
+         :return: Function awaits response
+         """
+
+        return await self.SetListenChannel(ctx, channel)
 
     async def SetListenChannel(
         self,
