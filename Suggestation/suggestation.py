@@ -105,7 +105,9 @@ class Suggestation(commands.Cog):
             description=suggestion
         )
 
-        return await ctx.send("", embed=embed)
+        msg = await ctx.send("", embed=embed)
+        await self.bot.wait(timeout=30)
+        await msg.delete()
 
     async def AcceptMessageBox(
             self,
@@ -117,7 +119,9 @@ class Suggestation(commands.Cog):
             description=suggestion
         )
 
-        return await ctx.send("", embed=embed)
+        msg = await ctx.send("", embed=embed)
+        await self.bot.wait(timeout=30)
+        await msg.delete()
 
     @commands.command(name="suggestation")
     async def CommandSuggestation(
@@ -131,25 +135,23 @@ class Suggestation(commands.Cog):
 
          :param ctx: The command which was sent
          :param suggestion: The sub-command name
-         :param what: The channel
+         :param what: The input to the command. Many types.
          :return: Function awaits response
          """
 
         if suggestion == "listenchannel":
-            #channel = get(ctx.guild.text_channels, id=textt)
-
             if isinstance(what, discord.TextChannel):
                 return await self.SetListenChannel(ctx, what)
 
             else:
-                return await self.ErrorMessageBox(ctx,f"I didn't find that channel...{what}")
+                return await self.ErrorMessageBox(ctx,f"I didn't find that channel...")
 
         elif suggestion == "sentchannel":
-            if what is discord.TextChannel:
+            if isinstance(what, discord.TextChannel):
                 return await self.SetSentChannel(ctx, what)
 
             else:
-                return await self.ErrorMessageBox(ctx, f"I didn't find that channel...{what}")
+                return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
