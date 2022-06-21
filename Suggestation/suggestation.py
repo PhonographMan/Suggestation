@@ -114,7 +114,7 @@ class Suggestation(commands.Cog):
         msg = await ctx.send("", embed=embed)
         try:
             await self.bot.wait_for("reaction_add", timeout=30, check=msg)
-        except asyncio.TimeoutError:
+        except:
             await msg.delete()
 
     async def AcceptMessageBox(
@@ -130,7 +130,7 @@ class Suggestation(commands.Cog):
         msg = await ctx.send("", embed=embed)
         try:
             await self.bot.wait_for("reaction_add", timeout=30, check=msg)
-        except asyncio.TimeoutError:
+        except:# asyncio.TimeoutError:
             await msg.delete()
 
     @commands.command(name="suggestation")
