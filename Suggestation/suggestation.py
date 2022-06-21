@@ -223,7 +223,7 @@ class Suggestation(commands.Cog):
         #suggestionFields = get(list, id=await self.config.guild(ctx.guild).suggestion_fields())
 
         fieldsOutput = "No fields entered"
-        async with self.config.suggestion_fields() as suggestionFields:
+        async with self.config.guild(ctx.guild).suggestion_fields() as suggestionFields:
 
             if isinstance(suggestionFields, list):
                 if len(suggestionFields) > 0:
