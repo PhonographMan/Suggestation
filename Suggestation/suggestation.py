@@ -223,9 +223,10 @@ class Suggestation(commands.Cog):
         suggestionFields = get(list, id=await self.config.guild(ctx.guild).suggestion_fields())
 
         fieldsOutput = "No fields entered"
-        if len(suggestionFields) > 0:
-            for i in range(len(suggestionFields)):
-                fieldsOutput = f"{fieldsOutput}\n[{i}] - {suggestionFields[i]}"
+        if isinstance(suggestionFields, list):
+            if len(suggestionFields) > 0:
+                for i in range(len(suggestionFields)):
+                    fieldsOutput = f"{fieldsOutput}\n[{i}] - {suggestionFields[i]}"
 
         embed = discord.Embed(
             title="Suggestion Fields",
