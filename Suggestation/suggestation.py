@@ -191,7 +191,7 @@ class Suggestation(commands.Cog):
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation will listen in all channels.")
 
-        await self.config.listen_channel_id.set(channel.id)
+        await self.config.guild(ctx.guild).listen_channel_id.set(channel.id)
         await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation will listen only to {channel.mention}")
 
