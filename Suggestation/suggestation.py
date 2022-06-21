@@ -298,7 +298,7 @@ class Suggestation(commands.Cog):
 
         await ctx.message.delete()
 
-        if removeField "":
+        if removeField == "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
 
         removeField = removeField.capitalize()
