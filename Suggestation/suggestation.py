@@ -15,7 +15,7 @@ class Suggestation(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = Config.get_conf(self, identifier=5654645645645645, force_registration=True)
+        self.config = Config.get_conf(self, identifier=56546456456456553, force_registration=True)
         self.config.register_guild(
             listen_channel_id=None,
             sent_channel_id=None,
