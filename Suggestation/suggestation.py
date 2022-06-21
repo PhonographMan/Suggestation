@@ -1,3 +1,4 @@
+import asyncio
 import typing
 
 import discord
@@ -7,6 +8,7 @@ from redbot.core import commands, Config
 from redbot.core.utils import embed
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate
+
 
 class Suggestation(commands.Cog):
     """My custom cog"""
@@ -61,7 +63,7 @@ class Suggestation(commands.Cog):
             elif len(currentContent) == 1:
                 return await self.ErrorMessageBox(ctx,
                                                   f"Field not found or nothing found within it, please enter something"
-                                      f"even if it is N/A for the field: **{fields[i]}**")
+                                                  f"even if it is N/A for the field: **{fields[i]}**")
 
             elif len(currentContent) > 2:
                 return await self.ErrorMessageBox(ctx,
@@ -106,8 +108,10 @@ class Suggestation(commands.Cog):
         )
 
         msg = await ctx.send("", embed=embed)
-        await self.bot.wait(timeout=30)
-        await msg.delete()
+        try:
+            await self.bot.wait(timeout=30)
+        except asyncio.TimeoutError:
+            await msg.delete()
 
     async def AcceptMessageBox(
             self,
@@ -120,8 +124,10 @@ class Suggestation(commands.Cog):
         )
 
         msg = await ctx.send("", embed=embed)
-        await self.bot.wait(timeout=30)
-        await msg.delete()
+        try:
+            await self.bot.wait(timeout=30)
+        except asyncio.TimeoutError:
+            await msg.delete()
 
     @commands.command(name="suggestation")
     async def CommandSuggestation(
@@ -144,7 +150,7 @@ class Suggestation(commands.Cog):
                 return await self.SetListenChannel(ctx, what)
 
             else:
-                return await self.ErrorMessageBox(ctx,f"I didn't find that channel...")
+                return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
 
         elif suggestion == "sentchannel":
             if isinstance(what, discord.TextChannel):
@@ -157,9 +163,9 @@ class Suggestation(commands.Cog):
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
 
     async def SetListenChannel(
-        self,
-        ctx: commands.Context,
-        channel: discord.TextChannel = None,
+            self,
+            ctx: commands.Context,
+            channel: discord.TextChannel = None,
     ):
         """
         SetListenChannel Sets the channel suggestions is listening in by setting listen_channel_id config
@@ -175,7 +181,6 @@ class Suggestation(commands.Cog):
 
         await self.config.listen_channel_id.set(channel.id)
         return await self.AcceptMessageBox(ctx, f"Suggestation will listen only to {channel.mention}")
-
 
     async def SetSentChannel(
             self,
