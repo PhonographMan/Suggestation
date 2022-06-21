@@ -134,27 +134,30 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context,
             suggestion: str,
-            what: typing.Union[discord.TextChannel, str]
+            first: typing.Union[discord.TextChannel, str],
+            second: typing.Union[int, str] = None,
+            *,
+            third: str = "",
     ):
         """
          CommandSuggestation Setup and modification command /suggestation
 
          :param ctx: The command which was sent
          :param suggestion: The sub-command name
-         :param what: The input to the command. Many types.
+         :param first: The input to the command. Many types.
          :return: Function awaits response
          """
 
         if suggestion == "listenchannel":
-            if isinstance(what, discord.TextChannel):
-                return await self.SetListenChannel(ctx, what)
+            if isinstance(first, discord.TextChannel):
+                return await self.SetListenChannel(ctx, first)
 
             else:
                 return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
 
         elif suggestion == "sentchannel":
-            if isinstance(what, discord.TextChannel):
-                return await self.SetSentChannel(ctx, what)
+            if isinstance(first, discord.TextChannel):
+                return await self.SetSentChannel(ctx, first)
 
             else:
                 return await self.ErrorMessageBox(ctx, f"I didn't find that channel...")
