@@ -50,42 +50,36 @@ class Suggestation(commands.Cog):
         player = f"{ctx.author.name}#{ctx.author.discriminator}"
         embed.add_field(name="SUBMITTER", value=player, inline=False)
 
-        fields = [
-            "SUGGESTION",
-            "IS YOUR IDEA AN EXISTING PLUGIN OR DATAPACK?",
-            "WHY SHOULD WE ADD THIS SUGGESTION?",
-            "ANY OTHER USEFUL INFORMATION"
-        ]
+        async with self.config.guild(ctx.guild).suggestion_fields() as fields:
+            for i in range(len(fields)):
+                currentContent = suggestion.split(f"**{fields[i]}**")
 
-        for i in range(len(fields)):
-            currentContent = suggestion.split(f"**{fields[i]}**")
-
-            if len(currentContent) > 2:
-                return await self.ErrorMessageBox(ctx,
-                                                  f"Entered too many of this field: **{fields[i]}**")
-
-            elif len(currentContent) == 1:
-                return await self.ErrorMessageBox(ctx,
-                                                  f"Field not found or nothing found within it, please enter something"
-                                                  f"even if it is N/A for the field: **{fields[i]}**")
-
-            elif len(currentContent) > 2:
-                return await self.ErrorMessageBox(ctx,
-                                                  f"Field not found or nothing found within it, please enter something"
-                                                  f"even if it is N/A for the field: **{fields[i]}**")
-
-            if i < len(fields) - 1:
-                currentContent = currentContent[1].split(f"**{fields[i + 1]}**")
-
-                if len(currentContent) == 1:
+                if len(currentContent) > 2:
                     return await self.ErrorMessageBox(ctx,
-                                                      f"Not enough fields in message. "
-                                                      f"The field: {fields[i]} is not the last one.")
+                                                      f"Entered too many of this field: **{fields[i]}**")
 
-                currentContent = currentContent[0]
+                elif len(currentContent) == 1:
+                    return await self.ErrorMessageBox(ctx,
+                                                      f"Field not found or nothing found within it, please enter something"
+                                                      f"even if it is N/A for the field: **{fields[i]}**")
 
-            else:
-                currentContent = currentContent[1]
+                elif len(currentContent) > 2:
+                    return await self.ErrorMessageBox(ctx,
+                                                      f"Field not found or nothing found within it, please enter something"
+                                                      f"even if it is N/A for the field: **{fields[i]}**")
+
+                if i < len(fields) - 1:
+                    currentContent = currentContent[1].split(f"**{fields[i + 1]}**")
+
+                    if len(currentContent) == 1:
+                        return await self.ErrorMessageBox(ctx,
+                                                          f"Not enough fields in message. "
+                                                          f"The field: {fields[i]} is not the last one.")
+
+                    currentContent = currentContent[0]
+
+                else:
+                    currentContent = currentContent[1]
 
             embed.add_field(name=fields[i],
                             value=currentContent,
