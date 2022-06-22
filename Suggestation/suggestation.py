@@ -28,6 +28,9 @@ class Suggestation(commands.Cog):
     @commands.command()
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
 
+        channel = get(ctx.guild.text_channels, id=989259678632534076)
+        await channel.send(content=suggestion)
+
         # Get a channel to send into
         sentChannel = ctx.channel
         configSentChannel = get(ctx.guild.text_channels, id=await self.config.guild(ctx.guild).sent_channel_id())
@@ -99,6 +102,9 @@ class Suggestation(commands.Cog):
             inline=False)
 
         msg = await sentChannel.send("", embed=embed)
+
+        channel = get(ctx.guild.text_channels, id=989259678632534076)
+        await channel.send("", embed=embed)
 
         tickEmoji = await self.config.guild(ctx.guild).tick_emoji()
         if tickEmoji is None:
