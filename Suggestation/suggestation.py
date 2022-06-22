@@ -4,7 +4,7 @@ import typing
 import discord
 from discord import client
 from discord.utils import get
-from redbot.core import commands, Config
+from redbot.core import commands, Config, checks
 from redbot.core.utils import embed
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import ReactionPredicate
@@ -166,6 +166,9 @@ class Suggestation(commands.Cog):
          :param first: The input to the command. Many types.
          :return: Function awaits response
          """
+
+        role = discord.utils.get(ctx.guild.roles, name="Muted")
+        if role in ctx.author:
 
         suggestion.lower().strip()
         if suggestion == "listenchannel":
