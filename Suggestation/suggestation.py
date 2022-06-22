@@ -154,7 +154,7 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context,
             suggestion: str,
-            first: typing.Union[discord.TextChannel, str, discord.role] = "",
+            first: typing.Union[discord.TextChannel, str, discord.Role] = "",
             *,
             second: str = "",
     ):
@@ -423,7 +423,7 @@ class Suggestation(commands.Cog):
     async def SetSuggestRole(
             self,
             ctx: commands.Context,
-            role: discord.role = None,
+            role: discord.Role = None,
     ):
         """
         SetSuggestRole Sets the role to mention in the suggestions
