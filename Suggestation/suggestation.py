@@ -137,7 +137,9 @@ class Suggestation(commands.Cog):
         try:
             await self.bot.wait_for("reaction_add", timeout=30, check=msg)
         except:
-            await msg.delete()
+            try:
+                await msg.delete()
+            except:
 
     async def AcceptMessageBox(
             self,
@@ -153,7 +155,9 @@ class Suggestation(commands.Cog):
         try:
             await self.bot.wait_for("reaction_add", timeout=30, check=msg)
         except:  # asyncio.TimeoutError:
-            await msg.delete()
+            try:
+                await msg.delete()
+            except:
 
     @checks.admin_or_permissions(administrator=True)
     @commands.command(name="suggestation")
