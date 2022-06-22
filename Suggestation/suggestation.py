@@ -397,6 +397,7 @@ class Suggestation(commands.Cog):
             return await msg.delete()
 
         async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
-            suggestion_fields=["SUGGESTION"]
+            suggestion_fields.clear()
+            suggestion_fields.append("SUGGESTION")
 
             return await self.AcceptMessageBox(ctx, f"Suggestation fields have been reset")
