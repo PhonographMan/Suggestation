@@ -100,19 +100,19 @@ class Suggestation(commands.Cog):
 
         msg = await sentChannel.send("", embed=embed)
 
-        async with self.config.guild(ctx.guild).tick_emoji() as tickEmoji:
-            if tickEmoji is None:
-                await msg.add_reaction("✅")
+        tickEmoji = await self.config.guild(ctx.guild).tick_emoji()
+        if tickEmoji is None:
+            await msg.add_reaction("✅")
 
-            else:
-                await msg.add_reaction(tickEmoji)
+        else:
+            await msg.add_reaction(tickEmoji)
 
-        async with self.config.guild(ctx.guild).cross_emoji() as crossEmoji:
-            if crossEmoji is None:
-                await msg.add_reaction("❎")
+        crossEmoji = await self.config.guild(ctx.guild).cross_emoji()
+        if crossEmoji is None:
+            await msg.add_reaction("❎")
 
-            else:
-                await msg.add_reaction(crossEmoji)
+        else:
+            await msg.add_reaction(crossEmoji)
 
         await ctx.message.delete()
 
