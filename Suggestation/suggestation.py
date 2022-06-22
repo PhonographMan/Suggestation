@@ -438,7 +438,7 @@ class Suggestation(commands.Cog):
         :return: Function awaits response
         """
 
-        if not isinstance(role, discord.Role):
+        if not role:
             await self.config.guild(ctx.guild).mentioned_role.set(None)
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation mention role is reset to nothing.")
@@ -460,7 +460,7 @@ class Suggestation(commands.Cog):
         :return: Function awaits response
         """
 
-        if not isinstance(emoji, discord.Emoji):
+        if not emoji:
             await self.config.guild(ctx.guild).tick_emoji.set(None)
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation first emoji is reset to nothing.")
@@ -482,7 +482,7 @@ class Suggestation(commands.Cog):
         :return: Function awaits response
         """
 
-        if not isinstance(emoji, discord.Emoji):
+        if not emoji:
             await self.config.guild(ctx.guild).cross_emoji.set(None)
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation second emoji is reset to nothing.")
