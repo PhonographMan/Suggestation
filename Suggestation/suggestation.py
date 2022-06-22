@@ -92,12 +92,11 @@ class Suggestation(commands.Cog):
 
         roleMention = await self.config.guild(ctx.guild).mentioned_role()
         if roleMention is None:
-            embed.add_field(name="Suggestation by Lord_Bones",
-                inline=False)
+            roleMention=" "
 
-        else:
-            embed.add_field(name="Suggestation by Lord_Bones",
-                inline=False)
+        embed.add_field(name="Suggestation by Lord_Bones",
+            value=roleMention,
+            inline=False)
 
         msg = await sentChannel.send("", embed=embed)
 
