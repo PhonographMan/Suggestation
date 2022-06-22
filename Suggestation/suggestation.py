@@ -226,7 +226,7 @@ class Suggestation(commands.Cog):
         """
 
         if not channel:
-            await self.config.listen_channel_id.set(None)
+            await self.config.guild(ctx.guild).listen_channel_id.set(None)
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation will listen in all channels.")
 
@@ -248,7 +248,7 @@ class Suggestation(commands.Cog):
         """
 
         if not channel:
-            await self.config.sent_channel_id.set(None)
+            await self.config.guild(ctx.guild).sent_channel_id.set(None)
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation send channel is reset to user channel")
 
