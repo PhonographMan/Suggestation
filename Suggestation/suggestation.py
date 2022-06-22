@@ -281,7 +281,7 @@ class Suggestation(commands.Cog):
 
         await ctx.message.delete()
 
-        newField = newField.capitalize()
+        newField = newField.upper()
         if newField not in await self.config.guild(ctx.guild).suggestion_fields():
             async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
                 suggestion_fields.append(f"{newField}")
@@ -309,7 +309,7 @@ class Suggestation(commands.Cog):
 
         await ctx.message.delete()
 
-        removeField = removeField.capitalize()
+        removeField = removeField.upper()
         if removeField in await self.config.guild(ctx.guild).suggestion_fields():
             async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
                 suggestion_fields.remove(f"{removeField}")
@@ -348,7 +348,7 @@ class Suggestation(commands.Cog):
 
         await ctx.message.delete()
 
-        newField = newField.capitalize()
+        newField = newField.upper()
         if newField not in await self.config.guild(ctx.guild).suggestion_fields():
             async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
                 if indexAsInt < 0:
