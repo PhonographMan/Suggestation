@@ -322,12 +322,22 @@ class Suggestation(commands.Cog):
             removeField: str
     ):
         """
-        AddSuggestFieldToEnd Add a field to the end
+        RemoveSuggestField Removes the given field
 
         :param ctx: The command which was sent
         :param removeField: Field to remove
         :return: Function awaits response
         """
+
+        removeField = removeField.strip()
+
+        if removeField.lower() == "help":
+            await ctx.message.delete()
+            return await ctx.send("```md\n"
+                "# !suggestation removeField <TEXT>\n"
+                "[⛰️]<RemoveField Removes the given field>\n"
+                "[📝]<Text The field to remove. Fields are not case sensitive.>\n"
+                "```")
 
         if removeField == "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
