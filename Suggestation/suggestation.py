@@ -362,11 +362,11 @@ class Suggestation(commands.Cog):
 
         if index.lower() == "help":
             await ctx.message.delete()
-            return await ctx.send("```md"
-                "# !suggestation insertfield <NUMBER> <TEXT>"
-                "[⛰️]<InsertField Inserts a new field at a given location>"
-                "[🔟]<Number The number to insert the field before. Use listfields to get an idea of these.>"
-                "[📝]<Text The new field to insert at that location>"
+            return await ctx.send("```md\n"
+                "# !suggestation insertfield <NUMBER> <TEXT>\n"
+                "[⛰️]<InsertField Inserts a new field at a given location>\n"
+                "[🔟]<Number The number to insert the field before. Use listfields to get an idea of these.>\n"
+                "[📝]<Text The new field to insert at that location>\n"
                 "```")
 
         if index == "":
