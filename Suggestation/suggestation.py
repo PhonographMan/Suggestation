@@ -313,15 +313,15 @@ class Suggestation(commands.Cog):
         await ctx.message.delete()
 
         removeField = removeField.upper()
-        if removeField in await self.config.guild(ctx.guild).suggestion_fields():
-            async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
-                suggestion_fields.remove(f"{removeField}")
-                if len(suggestion_fields) == 0:
-                    suggestion_fields.append("SUGGESTION")
-            return await self.AcceptMessageBox(ctx, f"Suggestation field removed {removeField}")
+        async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
+            if removeField in suggestion_fields:
+                return await self.ErrorMessageBox(ctx, f"Suggestation field {removeField} already isn't the list.")
 
-        else:
-            return await self.ErrorMessageBox(ctx, f"Suggestation field {removeField} already isn't the list.")
+            suggestion_fields.remove(f"{removeField}")
+            if len(suggestion_fields) == 0:
+                suggestion_fields.append("SUGGESTION")
+        return await self.AcceptMessageBox(ctx, f"Suggestation field removed {removeField}")
+
 
     async def InsertSuggestField(
             self,
@@ -354,18 +354,19 @@ class Suggestation(commands.Cog):
         await ctx.message.delete()
 
         newField = newField.upper()
-        if newField not in await self.config.guild(ctx.guild).suggestion_fields():
-            async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
-                if indexAsInt < 0:
-                    indexAsInt = 0
-                elif indexAsInt > len(suggestion_fields) - 1:
-                    indexAsInt = len(suggestion_fields) - 1
+        async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
+            if newField not in suggestion_fields:
+                return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
 
-                suggestion_fields.insert(indexAsInt, newField)
-            return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
+            if indexAsInt < 0:
+                indexAsInt = 0
+            elif indexAsInt > len(suggestion_fields) - 1:
+                indexAsInt = len(suggestion_fields) - 1
 
-        else:
-            return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
+            suggestion_fields.insert(indexAsInt, newField)
+
+        return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
+
 
     async def ResetFields(
             self,
