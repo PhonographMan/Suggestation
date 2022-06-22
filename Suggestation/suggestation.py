@@ -154,7 +154,7 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context,
             suggestion: str,
-            first: typing.Union[discord.TextChannel, str, discord.Role] = "",
+            first: typing.Union[discord.TextChannel, str, discord.Role, discord.Emoji] = "",
             *,
             second: str = "",
     ):
@@ -167,8 +167,7 @@ class Suggestation(commands.Cog):
          :return: Function awaits response
          """
 
-        await ctx.send(f"suggestion: {suggestion}, first: {first}, Second:{second}")
-
+        suggestion.lower().strip()
         if suggestion == "listenchannel":
             if isinstance(first, discord.TextChannel):
                 return await self.SetListenChannel(ctx, first)
@@ -203,6 +202,12 @@ class Suggestation(commands.Cog):
 
         elif suggestion == "setrole":
             return await self.SetSuggestRole(ctx, first)
+
+        elif suggestion == "settick":
+            return await self.SetTickEmoji(ctx, first)
+
+        elif suggestion == "setcross":
+            return await self.SetCrossEmoji(ctx, first)
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
@@ -433,7 +438,7 @@ class Suggestation(commands.Cog):
         :return: Function awaits response
         """
 
-        if not role:
+        if not isinstance(role, discord.Role):
             await self.config.guild(ctx.guild).mentioned_role.set(None)
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation mention role is reset to nothing.")
@@ -441,3 +446,47 @@ class Suggestation(commands.Cog):
         await self.config.guild(ctx.guild).mentioned_role.set(role)
         await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation will send {role} role")
+
+    async def SetTickEmoji(
+            self,
+            ctx: commands.Context,
+            emoji: discord.Emoji = None,
+    ):
+        """
+        SetTickEmoji Sets the first emoji on the suggestion
+
+        :param ctx: The command which was sent
+        :param emoji: The emoji to attach
+        :return: Function awaits response
+        """
+
+        if not isinstance(emoji, discord.Emoji):
+            await self.config.guild(ctx.guild).tick_emoji.set(None)
+            await ctx.message.delete()
+            return await self.AcceptMessageBox(ctx, f"Suggestation first emoji is reset to nothing.")
+
+        await self.config.guild(ctx.guild).tick_emoji.set(emoji)
+        await ctx.message.delete()
+        return await self.AcceptMessageBox(ctx, f"Suggestation will attach {emoji} first on suggestions")
+
+    async def SetCrossEmoji(
+            self,
+            ctx: commands.Context,
+            emoji: discord.Emoji = None,
+    ):
+        """
+        SetCrossEmoji Sets the second emoji on the suggestion
+
+        :param ctx: The command which was sent
+        :param emoji: The emoji to attach
+        :return: Function awaits response
+        """
+
+        if not isinstance(emoji, discord.Emoji):
+            await self.config.guild(ctx.guild).cross_emoji.set(None)
+            await ctx.message.delete()
+            return await self.AcceptMessageBox(ctx, f"Suggestation second emoji is reset to nothing.")
+
+        await self.config.guild(ctx.guild).cross_emoji.set(emoji)
+        await ctx.message.delete()
+        return await self.AcceptMessageBox(ctx, f"Suggestation will attach {emoji} second on suggestions")
