@@ -149,6 +149,7 @@ class Suggestation(commands.Cog):
         except:  # asyncio.TimeoutError:
             await msg.delete()
 
+    @checks.admin_or_permissions(administrator=True)
     @commands.command(name="suggestation")
     async def CommandSuggestation(
             self,
@@ -166,9 +167,6 @@ class Suggestation(commands.Cog):
          :param first: The input to the command. Many types.
          :return: Function awaits response
          """
-
-        role = discord.utils.get(ctx.guild.roles, name="Muted")
-        if role in ctx.author:
 
         suggestion.lower().strip()
         if suggestion == "listenchannel":
