@@ -140,6 +140,7 @@ class Suggestation(commands.Cog):
             try:
                 await msg.delete()
             except:
+                ""
 
     async def AcceptMessageBox(
             self,
@@ -158,6 +159,7 @@ class Suggestation(commands.Cog):
             try:
                 await msg.delete()
             except:
+                ""
 
     @checks.admin_or_permissions(administrator=True)
     @commands.command(name="suggestation")
