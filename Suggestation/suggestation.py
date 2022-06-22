@@ -51,7 +51,10 @@ class Suggestation(commands.Cog):
         embed.add_field(name="SUBMITTER", value=player, inline=False)
 
         async with self.config.guild(ctx.guild).suggestion_fields() as fields:
+
             for i in range(len(fields)):
+                field = fields[i].strip()
+
                 currentContent = suggestion.split(f"**{fields[i]}**")
 
                 if len(currentContent) > 2:
