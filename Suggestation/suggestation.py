@@ -19,12 +19,14 @@ class Suggestation(commands.Cog):
         self.config.register_guild(
             listen_channel_id=None,
             sent_channel_id=None,
-            suggestion_fields=["SUGGESTION"]
+            suggestion_fields=["SUGGESTION"],
+            mentioned_role=None,
+            tick_emoji=None,
+            cross_emoji=None,
         )
 
     @commands.command()
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
-        roleMention = "<@&988180927903592538>"
 
         # Get a channel to send into
         sentChannel = ctx.channel
@@ -85,16 +87,33 @@ class Suggestation(commands.Cog):
                     currentContent = currentContent[1]
 
                 embed.add_field(name=fields[i],
-                            value=currentContent,
-                            inline=False)
+                                value=currentContent,
+                                inline=False)
+
+        roleMention = await self.config.guild(ctx.guild).role_Mention()
+        if roleMention is None:
+            roleMention = ""
 
         embed.add_field(name="Suggestation by Lord_Bones",
                         value=roleMention,
                         inline=False)
 
         msg = await sentChannel.send("", embed=embed)
-        await msg.add_reaction("<:emoji:731293934822883429>")
-        await msg.add_reaction("<:emoji:731293934856175687>")
+
+        async with self.config.guild(ctx.guild).tick_emoji() as tickEmoji:
+            if tickEmoji is None:
+                await msg.add_reaction("✅")
+
+            else:
+                await msg.add_reaction(tickEmoji)
+
+        async with self.config.guild(ctx.guild).cross_emoji() as crossEmoji:
+            if crossEmoji is None:
+                await msg.add_reaction("❎")
+
+            else:
+                await msg.add_reaction(crossEmoji)
+
         await ctx.message.delete()
 
     async def ErrorMessageBox(
@@ -127,7 +146,7 @@ class Suggestation(commands.Cog):
         msg = await ctx.send("", embed=embed)
         try:
             await self.bot.wait_for("reaction_add", timeout=30, check=msg)
-        except:# asyncio.TimeoutError:
+        except:  # asyncio.TimeoutError:
             await msg.delete()
 
     @commands.command(name="suggestation")
@@ -317,7 +336,6 @@ class Suggestation(commands.Cog):
         await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation field removed {removeField}")
 
-
     async def InsertSuggestField(
             self,
             ctx: commands.Context,
@@ -360,7 +378,6 @@ class Suggestation(commands.Cog):
 
         await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
-
 
     async def ResetFields(
             self,
