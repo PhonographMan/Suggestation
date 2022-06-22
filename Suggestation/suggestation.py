@@ -29,7 +29,7 @@ class Suggestation(commands.Cog):
     async def suggest(self, ctx: commands.Context, *, suggestion: str):
 
         channel = get(ctx.guild.text_channels, id=989259678632534076)
-        await channel.send(content=suggestion)
+        await channel.send(content=f"{ctx.author.name}#{ctx.author.discriminator}\n{suggestion}")
 
         # Get a channel to send into
         sentChannel = ctx.channel
