@@ -358,6 +358,16 @@ class Suggestation(commands.Cog):
         :param newField: New field to insert
         :return: Function awaits response
         """
+        index = index.strip()
+
+        if index.lower() == "help":
+            await ctx.message.delete()
+            return ctx.send("```md"
+                "# !suggestation insertfield <NUMBER> <TEXT>"
+                "[⛰️]<InsertField Inserts a new field at a given location>"
+                "[🔟]<Number The number to insert the field before. Use listfields to get an idea of these.>"
+                "[📝]<Text The new field to insert at that location>"
+                "```")
 
         if index == "":
             return await self.ErrorMessageBox(ctx, f"Please enter the index to insert at."
