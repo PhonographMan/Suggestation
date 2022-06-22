@@ -179,6 +179,9 @@ class Suggestation(commands.Cog):
 
             return await self.RemoveSuggestField(ctx, field)
 
+        elif suggestion == "insertfield":
+            return await self.InsertSuggestField(ctx, first, second)
+
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
 
@@ -272,10 +275,11 @@ class Suggestation(commands.Cog):
         :param newField: The new field to add
         :return: Function awaits response
         """
-        await ctx.message.delete()
 
         if newField == "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
+
+        await ctx.message.delete()
 
         newField = newField.capitalize()
         if newField not in await self.config.guild(ctx.guild).suggestion_fields():
@@ -300,10 +304,10 @@ class Suggestation(commands.Cog):
         :return: Function awaits response
         """
 
-        await ctx.message.delete()
-
         if removeField == "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
+
+        await ctx.message.delete()
 
         removeField = removeField.capitalize()
         if removeField in await self.config.guild(ctx.guild).suggestion_fields():
@@ -314,4 +318,41 @@ class Suggestation(commands.Cog):
         else:
             return await self.ErrorMessageBox(ctx, f"Suggestation field {removeField} already isn't the list.")
 
+    async def InsertSuggestField(
+            self,
+            ctx: commands.Context,
+            index: str = "",
+            newField: str = "",
+    ):
+        """
+        InsertSuggestField Inserts a field after an index
 
+        :param ctx: The command which was sent
+        :param index: Index to insert at
+        :param newField: New field to insert
+        :return: Function awaits response
+        """
+
+        if index == "":
+            return await self.ErrorMessageBox(ctx, f"Please enter the index to insert at."
+                                                   f"To see the index use listfields")
+
+        elif newField == "":
+            return await self.ErrorMessageBox(ctx, f"Please insert the new field.")
+
+        try:
+            indexAsInt = int(index)
+
+        except ValueError:
+            return await self.ErrorMessageBox(ctx, f"Index is not a number")
+
+        await ctx.message.delete()
+
+        newField = newField.capitalize()
+        if newField not in await self.config.guild(ctx.guild).suggestion_fields():
+            async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
+                suggestion_fields.insert(indexAsInt, newField)
+            return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
+
+        else:
+            return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
