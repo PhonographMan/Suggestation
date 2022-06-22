@@ -351,6 +351,11 @@ class Suggestation(commands.Cog):
         newField = newField.capitalize()
         if newField not in await self.config.guild(ctx.guild).suggestion_fields():
             async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
+                if indexAsInt < 0:
+                    indexAsInt = 0
+                elif indexAsInt > len(suggestion_fields) - 1:
+                    indexAsInt = len(suggestion_fields) - 1
+
                 suggestion_fields.insert(indexAsInt, newField)
             return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
 
