@@ -331,7 +331,7 @@ class Suggestation(commands.Cog):
 
         removeField = removeField.strip()
 
-        if removeField.lower() == "help":
+        if removeField.lower() == "*help":
             await ctx.message.delete()
             return await ctx.send("```md\n"
                 "# !suggestation removeField <TEXT>\n"
@@ -370,7 +370,7 @@ class Suggestation(commands.Cog):
         """
         index = index.strip()
 
-        if index.lower() == "help":
+        if index.lower() == "*help":
             await ctx.message.delete()
             return await ctx.send("```md\n"
                 "# !suggestation insertfield <NUMBER> <TEXT>\n"
