@@ -84,7 +84,7 @@ class Suggestation(commands.Cog):
                 else:
                     currentContent = currentContent[1]
 
-            embed.add_field(name=fields[i],
+                embed.add_field(name=fields[i],
                             value=currentContent,
                             inline=False)
 
