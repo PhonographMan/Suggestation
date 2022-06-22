@@ -90,7 +90,7 @@ class Suggestation(commands.Cog):
                                 value=currentContent,
                                 inline=False)
 
-        roleMention = await self.config.guild(ctx.guild).role_Mention()
+        roleMention = await self.config.guild(ctx.guild).mentioned_role()
         if roleMention is None:
             roleMention = ""
 
