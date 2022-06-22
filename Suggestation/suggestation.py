@@ -303,6 +303,16 @@ class Suggestation(commands.Cog):
         :return: Function awaits response
         """
 
+        newField = newField.strip()
+
+        if newField.lower() == "*help":
+            await ctx.message.delete()
+            return await ctx.send("```md\n"
+                "# !suggestation addfield <TEXT>\n"
+                "[⛰️]<AddField Add a field to the end>\n"
+                "[📝]<Text The field to add. Fields are not case sensitive.>\n"
+                "```")
+
         if newField == "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
 
