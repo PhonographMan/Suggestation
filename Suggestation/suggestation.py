@@ -92,7 +92,7 @@ class Suggestation(commands.Cog):
 
         roleMention = await self.config.guild(ctx.guild).mentioned_role()
         if roleMention is None:
-            roleMention="gdfgd"
+            roleMention="·"
 
         embed.add_field(name="Suggestation by Lord_Bones",
             value=roleMention,
