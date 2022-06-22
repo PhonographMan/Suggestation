@@ -154,7 +154,7 @@ class Suggestation(commands.Cog):
             self,
             ctx: commands.Context,
             suggestion: str,
-            first: typing.Union[discord.TextChannel, str] = "",
+            first: typing.Union[discord.TextChannel, str, discord.role] = "",
             *,
             second: str = "",
     ):
@@ -200,6 +200,9 @@ class Suggestation(commands.Cog):
 
         elif suggestion == "resetfields":
             return await self.ResetFields(ctx)
+
+        elif suggestion == "setrole":
+            return await self.SetSuggestRole(ctx, first)
 
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
@@ -416,3 +419,25 @@ class Suggestation(commands.Cog):
 
             await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation fields have been reset")
+
+    async def SetSuggestRole(
+            self,
+            ctx: commands.Context,
+            role: discord.role = None,
+    ):
+        """
+        SetSuggestRole Sets the role to mention in the suggestions
+
+        :param ctx: The command which was sent
+        :param role: The role to update
+        :return: Function awaits response
+        """
+
+        if not role:
+            await self.config.guild(ctx.guild).mentioned_role.set(None)
+            await ctx.message.delete()
+            return await self.AcceptMessageBox(ctx, f"Suggestation mention role is reset to nothing.")
+
+        await self.config.guild(ctx.guild).mentioned_role.set(role)
+        await ctx.message.delete()
+        return await self.AcceptMessageBox(ctx, f"Suggestation will send {role} role")
