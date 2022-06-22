@@ -182,6 +182,9 @@ class Suggestation(commands.Cog):
         elif suggestion == "insertfield":
             return await self.InsertSuggestField(ctx, first, second)
 
+        elif suggestion == "resetfields":
+            return await self.ResetFields(ctx)
+
         else:
             return await self.ErrorMessageBox(ctx, "Command not recognised.")
 
@@ -361,3 +364,39 @@ class Suggestation(commands.Cog):
 
         else:
             return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
+
+    async def ResetFields(
+            self,
+            ctx: commands.Context,
+    ):
+        """
+        ResetFields Resets fields to default
+
+        :param ctx: The command which was sent
+        :return: Function awaits response
+        """
+
+        embed = discord.Embed(
+            title="Something went wrong",
+            color=discord.Color.from_rgb(255, 0, 0),
+            description="Are you sure you would like to reset the fields?"
+        )
+        msg = await ctx.send("", embed=embed)
+        start_adding_reactions(msg, ReactionPredicate.YES_OR_NO_EMOJIS)
+        pred = ReactionPredicate.yes_or_no(msg, ctx.author)
+
+        try:
+            await self.bot.wait_for("reaction_add", timeout=30, check=pred)
+
+        except asyncio.TimeoutError:
+            await msg.delete()
+            return await self.ErrorMessageBox(ctx, "You took too long. Try again, please.")
+
+        # This means they chose no
+        if not pred.result:
+            return await msg.delete()
+
+        async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
+            suggestion_fields=["SUGGESTION"]
+
+            return await self.AcceptMessageBox(ctx, f"Suggestation fields have been reset")
