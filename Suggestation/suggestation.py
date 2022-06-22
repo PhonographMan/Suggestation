@@ -285,14 +285,13 @@ class Suggestation(commands.Cog):
         await ctx.message.delete()
 
         newField = newField.upper()
-        if newField not in await self.config.guild(ctx.guild).suggestion_fields():
-            async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
-                suggestion_fields.append(f"{newField}")
-            return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
 
-        else:
-            return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
+        async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
+            if newField in suggestion_fields:
+                return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
 
+            suggestion_fields.append(f"{newField}")
+        return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
 
     async def RemoveSuggestField(
             self,
@@ -314,7 +313,7 @@ class Suggestation(commands.Cog):
 
         removeField = removeField.upper()
         async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
-            if removeField in suggestion_fields:
+            if removeField not in suggestion_fields:
                 return await self.ErrorMessageBox(ctx, f"Suggestation field {removeField} already isn't the list.")
 
             suggestion_fields.remove(f"{removeField}")
@@ -355,7 +354,7 @@ class Suggestation(commands.Cog):
 
         newField = newField.upper()
         async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
-            if newField not in suggestion_fields:
+            if newField in suggestion_fields:
                 return await self.ErrorMessageBox(ctx, f"Suggestation field {newField} already in the list.")
 
             if indexAsInt < 0:
