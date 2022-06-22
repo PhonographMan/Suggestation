@@ -19,4 +19,4 @@ A basic suggestion bot for Dominion.
 1. ~~Configurable guilds/channels~~
 2. ~~Configurable fields~~
 3. ~~Configurable role tag~~
-4. Configurable reactions
+4. ~~Configurable reactions~~
