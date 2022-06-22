@@ -305,8 +305,6 @@ class Suggestation(commands.Cog):
         if removeField == "":
             return await self.ErrorMessageBox(ctx, f"Please enter something to remove from the field list")
 
-        await ctx.message.delete()
-
         removeField = removeField.upper().strip()
         async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
             if removeField not in suggestion_fields:
@@ -316,6 +314,7 @@ class Suggestation(commands.Cog):
             if len(suggestion_fields) == 0:
                 suggestion_fields.append("SUGGESTION")
 
+        await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation field removed {removeField}")
 
 
@@ -347,8 +346,6 @@ class Suggestation(commands.Cog):
         except ValueError:
             return await self.ErrorMessageBox(ctx, f"Index is not a number")
 
-        await ctx.message.delete()
-
         newField = newField.upper().strip()
         async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
             if newField in suggestion_fields:
@@ -361,6 +358,7 @@ class Suggestation(commands.Cog):
 
             suggestion_fields.insert(indexAsInt, newField)
 
+        await ctx.message.delete()
         return await self.AcceptMessageBox(ctx, f"Suggestation field added to end: {newField}")
 
 
@@ -376,7 +374,7 @@ class Suggestation(commands.Cog):
         """
 
         embed = discord.Embed(
-            title="Something went wrong",
+            title="Are you sure?",
             color=discord.Color.from_rgb(255, 0, 0),
             description="Are you sure you would like to reset the fields?"
         )
@@ -399,4 +397,5 @@ class Suggestation(commands.Cog):
             suggestion_fields.clear()
             suggestion_fields.append("SUGGESTION")
 
+            await ctx.message.delete()
             return await self.AcceptMessageBox(ctx, f"Suggestation fields have been reset")
