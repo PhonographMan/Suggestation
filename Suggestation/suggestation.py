@@ -316,6 +316,8 @@ class Suggestation(commands.Cog):
         if removeField in await self.config.guild(ctx.guild).suggestion_fields():
             async with self.config.guild(ctx.guild).suggestion_fields() as suggestion_fields:
                 suggestion_fields.remove(f"{removeField}")
+                if len(suggestion_fields) == 0:
+                    suggestion_fields.append("SUGGESTION")
             return await self.AcceptMessageBox(ctx, f"Suggestation field removed {removeField}")
 
         else:
